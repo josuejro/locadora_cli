@@ -1,20 +1,15 @@
 from utilidades import interface
+import operacoes
 
 while True:
     opc = interface.menu()
 
     if opc == 1:
-        #função futura
+        operacoes.cadastro.cadastrar_carro()
     elif opc == 2:
-        #função futura
+        operacoes.estoque.estoque()
     elif opc == 3:
-        #função futura
-    elif opc == 4:
-        #função futura
-    elif opc == 5:
-        #função futura
-    elif opc == 6:
-        #função futura
+        operacoes.cadastro.cadastrar_clientes()
     else: 
         input('Opção inválida, pressione Enter e tente novamente.')
         break
