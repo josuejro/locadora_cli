@@ -50,7 +50,7 @@ def realizar_locacao():
     print(f'Locador: {cliente_atual.nome}')
     print(f'Veículo: {carro_escolhido.marca} {carro_escolhido.modelo}')
     print(f'Dias contratados: {quantidade_dias} dias')
-    print(f'Valor provisório: R$ {valor_total_previsto}')
+    print(f'Valor provisório: R$ {valor_total_previsto:.2f}')
 
     confirm = input('Confirma a locação? [S/N]: ').strip().upper()[0]
 

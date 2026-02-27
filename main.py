@@ -12,6 +12,10 @@ while True:
         operacoes.cadastro.cadastrar_clientes()
     elif opc == 4:
         operacoes.locacao.realizar_locacao()
+    elif opc == 5:
+        operacoes.devolucao.realizar_devolução()
+    elif opc == 6:
+        print('Saindo do sistema... ')
     else: 
         input('Opção inválida, pressione Enter e tente novamente.')
         break
