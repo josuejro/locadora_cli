@@ -1,5 +1,6 @@
 from operacoes.cadastro import estoque_carros
 from utilidades.interface import cabecalho
+from utilidades.calculos import formatar_moeda
 
 def estoque():
     cabecalho('ESTOQUE DE VEÍCULOS')
@@ -12,7 +13,7 @@ def estoque():
             else:
                 texto_status = 'Alugado'
             
-            print(f'[{veiculo.placa}] {veiculo.marca} {veiculo.modelo} - Diária: R$ {veiculo.preco_diaria} ({texto_status})')
+            print(f'[{veiculo.placa}] {veiculo.marca} {veiculo.modelo} - Diária: {formatar_moeda(veiculo.preco_diaria)} ({texto_status})')
 
     print()
     input('Pressione Enter para voltar... ')

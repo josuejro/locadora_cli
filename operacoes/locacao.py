@@ -2,6 +2,7 @@ from operacoes.cadastro import estoque_carros
 from operacoes.cadastro import lista_clientes
 from modelos.contrato import Contrato
 from utilidades.interface import cabecalho
+from utilidades.calculos import formatar_moeda
 
 lista_locacoes = []
 
@@ -27,7 +28,7 @@ def realizar_locacao():
 
     for carro in estoque_carros:
         if carro.disponivel == True:
-            print(f'[{carro.placa}] {carro.marca} {carro.modelo} - Diária: R$ {carro.preco_diaria}')
+            print(f'[{carro.placa}] {carro.marca} {carro.modelo} - Diária: {formatar_moeda(carro.preco_diaria)}')
     
     placa_escolhida = input('Digite a placa do carro escolhido pelo locador: ')
     carro_escolhido = None
@@ -50,7 +51,7 @@ def realizar_locacao():
     print(f'Locador: {cliente_atual.nome}')
     print(f'Veículo: {carro_escolhido.marca} {carro_escolhido.modelo}')
     print(f'Dias contratados: {quantidade_dias} dias')
-    print(f'Valor provisório: R$ {valor_total_previsto:.2f}')
+    print(f'Valor provisório: R$ {formatar_moeda(valor_total_previsto)}')
 
     confirm = input('Confirma a locação? [S/N]: ').strip().upper()[0]
 

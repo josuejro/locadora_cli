@@ -1,6 +1,7 @@
 from operacoes.locacao import lista_locacoes
 from operacoes.cadastro import estoque_carros
 from utilidades.interface import cabecalho
+from utilidades.calculos import formatar_moeda, calcular_multa_km, calcular_multa_atraso
 
 def realizar_devolução():
     cabecalho('DEVOLUÇÃO DE VEÍCULO')
@@ -28,7 +29,7 @@ def realizar_devolução():
 
     if km_rodados > contrato_atual.limite_km:
         km_excedente = km_rodados - contrato_atual.limite_km
-        taxas_adicionais = taxas_adicionais + (km_excedente * 2.50)
+        taxas_adicionais = taxas_adicionais + calcular_multa_km(km_excedente)
     
     possui_avarias = input('Há avarias no veículo devolvido? [S/N]: ').strip().upper()[0]
     
@@ -40,7 +41,7 @@ def realizar_devolução():
     horas_atraso = float(input('Horas de atraso da entrega do veículo: '))
 
     if horas_atraso > 0:
-        taxas_adicionais = taxas_adicionais + (horas_atraso * 30)
+        taxas_adicionais = taxas_adicionais + calcular_multa_atraso(horas_atraso)
     else:
         print('Veículo entregue no horário.')
     
@@ -49,9 +50,9 @@ def realizar_devolução():
 
     print('-------------Extrato de Devolução-------------')
     print(f'Placa do Veículo: {contrato_atual.placa_carro}')
-    print(f'Valor provisório: R$ {contrato_atual.valor_provisorio:.2f}')
+    print(f'Valor provisório: R$ {formatar_moeda(contrato_atual.valor_provisorio)}')
     print(f'Total de multas e taxas adicionais: R$ {taxas_adicionais}')
-    print(f'Valor final a pagar: {valor_final:.2f}')
+    print(f'Valor final a pagar: {formatar_moeda(valor_final)}')
 
     confirm_pag = input('Confirma o pagamento? [S/N] ').strip().upper()[0]
 
