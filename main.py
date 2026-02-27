@@ -1,5 +1,10 @@
 from utilidades import interface
 import operacoes
+from utilidades import banco_dados
+
+operacoes.cadastro.estoque_carros.extend(banco_dados.carregar_carros())
+operacoes.cadastro.lista_clientes.extend(banco_dados.carregar_clientes())
+operacoes.locacao.lista_locacoes.extend(banco_dados.carregar_locacoes())
 
 while True:
     opc = interface.menu()
@@ -16,6 +21,7 @@ while True:
         operacoes.devolucao.realizar_devolução()
     elif opc == 6:
         print('Saindo do sistema... ')
+        break
     else: 
         input('Opção inválida, pressione Enter e tente novamente.')
         break

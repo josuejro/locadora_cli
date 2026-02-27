@@ -5,7 +5,7 @@ def limpar_tela():
     subprocess.call('cls' if os.name == 'nt' else 'clear', shell=True)
 
 def cabecalho(txt):
-    tam = len(txt) + 4
+    tam = 50
     linha = '-' * tam
 
     limpar_tela()

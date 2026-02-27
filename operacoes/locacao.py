@@ -3,6 +3,7 @@ from operacoes.cadastro import lista_clientes
 from modelos.contrato import Contrato
 from utilidades.interface import cabecalho
 from utilidades.calculos import formatar_moeda
+from utilidades import banco_dados
 
 lista_locacoes = []
 
@@ -47,11 +48,19 @@ def realizar_locacao():
 
     valor_total_previsto = quantidade_dias * carro_escolhido.preco_diaria
 
-    print('--------Resumo da Locação--------')
-    print(f'Locador: {cliente_atual.nome}')
-    print(f'Veículo: {carro_escolhido.marca} {carro_escolhido.modelo}')
-    print(f'Dias contratados: {quantidade_dias} dias')
-    print(f'Valor provisório: R$ {formatar_moeda(valor_total_previsto)}')
+    print('-' * 50)
+    print('RESUMO DA LOCAÇÃO'.center(50))
+    print('-' * 50)
+        
+    nome_veiculo = f"{carro_escolhido.marca} {carro_escolhido.modelo}"
+    texto_dias = f"{quantidade_dias} dias"
+        
+    print(f'{"Locador:":<30}{cliente_atual.nome:>20}')
+    print(f'{"Veículo:":<30}{nome_veiculo:>20}')
+    print(f'{"Dias contratados:":<30}{texto_dias:>20}')
+    print(f'{"Valor provisório:":<30}{formatar_moeda(valor_total_previsto):>20}')
+    print('-' * 50)
+    print()
 
     confirm = input('Confirma a locação? [S/N]: ').strip().upper()[0]
 
@@ -71,6 +80,8 @@ def realizar_locacao():
             status='Ativa'                          # Muito importante para a devolução
         )
         lista_locacoes.append(novo_contrato)
+        banco_dados.salvar_locacoes(lista_locacoes)
+        banco_dados.salvar_carros(estoque_carros)
 
         carro_escolhido.disponivel = False
 

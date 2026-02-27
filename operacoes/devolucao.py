@@ -2,6 +2,7 @@ from operacoes.locacao import lista_locacoes
 from operacoes.cadastro import estoque_carros
 from utilidades.interface import cabecalho
 from utilidades.calculos import formatar_moeda, calcular_multa_km, calcular_multa_atraso
+from utilidades import banco_dados
 
 def realizar_devolução():
     cabecalho('DEVOLUÇÃO DE VEÍCULO')
@@ -48,16 +49,23 @@ def realizar_devolução():
     valor_final = contrato_atual.valor_provisorio
     valor_final = valor_final + taxas_adicionais
 
-    print('-------------Extrato de Devolução-------------')
-    print(f'Placa do Veículo: {contrato_atual.placa_carro}')
-    print(f'Valor provisório: R$ {formatar_moeda(contrato_atual.valor_provisorio)}')
-    print(f'Total de multas e taxas adicionais: R$ {taxas_adicionais}')
-    print(f'Valor final a pagar: {formatar_moeda(valor_final)}')
+    print('-' * 50)
+    print('EXTRATO DE DEVOLUÇÃO'.center(50))
+    print('-' * 50)
+    
+    print(f'{"Placa do Veículo:":<30}{contrato_atual.placa_carro:>20}')
+    print(f'{"Valor provisório:":<30}{formatar_moeda(contrato_atual.valor_provisorio):>20}')
+    print(f'{"Multas e taxas adicionais:":<30}{formatar_moeda(taxas_adicionais):>20}')
+    print(f'{"Valor final a pagar:":<30}{formatar_moeda(valor_final):>20}')
+    print('-' * 50)
+    print()
 
     confirm_pag = input('Confirma o pagamento? [S/N] ').strip().upper()[0]
 
     if confirm_pag == 'S':
         contrato_atual.status = 'Finalizado'
+        banco_dados.salvar_locacoes(lista_locacoes)
+        banco_dados.salvar_carros(estoque_carros)
 
         for carro in estoque_carros:
             if carro.placa == contrato_atual.placa_carro:
