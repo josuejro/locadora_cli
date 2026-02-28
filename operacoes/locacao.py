@@ -44,7 +44,7 @@ def realizar_locacao():
         input('Pressione Enter para retornar ao menu principal... ')
     
     quantidade_dias = int(input('Quantidade de dias que o veículo estará alugado: '))
-    quilometragem_painel = float(input('Quilometragem presente no painel do veículo: '))
+    quilometragem_painel = float(input('Quilometragem presente no painel do veículo (1234.56): '))
 
     valor_total_previsto = quantidade_dias * carro_escolhido.preco_diaria
 

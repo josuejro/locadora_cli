@@ -27,14 +27,14 @@ def carregar_carros():
         return lista_temp
     
     df = pd.read_csv('carros.csv')
-    for index, linha in df.iterrows():
+    for _, linha in df.iterrows():
         novo_carro = Carro(
             str(linha['placa']),
             str(linha['marca']),
             str(linha['modelo']),
             float(linha['preco_diaria'])
         )
-        novo_carro.disponivel = bool(linha['disponivel'])
+        novo_carro.disponivel = linha['disponivel'] == True
         lista_temp.append(novo_carro)
     
     return lista_temp

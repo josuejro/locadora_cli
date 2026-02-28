@@ -25,7 +25,7 @@ def realizar_devolução():
     if tanque_cheio == 'N':
         taxas_adicionais = taxas_adicionais + 150.00
 
-    km_devolução = float(input('Quilometragem após devolução: '))
+    km_devolução = float(input('Quilometragem após devolução (ex: 25.6): '))
     km_rodados = km_devolução - contrato_atual.km_inicial
 
     if km_rodados > contrato_atual.limite_km:
@@ -35,11 +35,11 @@ def realizar_devolução():
     possui_avarias = input('Há avarias no veículo devolvido? [S/N]: ').strip().upper()[0]
     
     if possui_avarias == 'S':
-        valor_avarias = float(input('Insira o custo das avarias identificadas: R$ '))
+        valor_avarias = float(input('Insira o custo das avarias identificadas (ex: 124.88): R$ '))
         taxas_adicionais = taxas_adicionais + valor_avarias
     
     horas_atraso = 0
-    horas_atraso = float(input('Horas de atraso da entrega do veículo: '))
+    horas_atraso = float(input('Horas de atraso da entrega do veículo (ex: 2.3): '))
 
     if horas_atraso > 0:
         taxas_adicionais = taxas_adicionais + calcular_multa_atraso(horas_atraso)
@@ -64,12 +64,13 @@ def realizar_devolução():
 
     if confirm_pag == 'S':
         contrato_atual.status = 'Finalizado'
-        banco_dados.salvar_locacoes(lista_locacoes)
-        banco_dados.salvar_carros(estoque_carros)
 
         for carro in estoque_carros:
             if carro.placa == contrato_atual.placa_carro:
                 carro.disponivel = True
+                banco_dados.salvar_locacoes(lista_locacoes)
+                banco_dados.salvar_carros(estoque_carros)
+
                 break
 
         print('Pagamento confirmado e devolução efetuada com sucesso! Veículo liberado em estoque.')

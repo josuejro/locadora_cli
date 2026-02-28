@@ -12,7 +12,7 @@ def cadastrar_carro():
     placa_temp = input('Digite a placa do carro: ')
     marca_temp = input('Digite a marca do carro: ')
     modelo_temp = input('Digite o modelo do carro: ')
-    preco_diaria_temp = float(input('Digite o valor da diária do carro: '))
+    preco_diaria_temp = float(input('Digite o valor da diária do carro (ex: 150.99): R$ '))
 
     novo_carro = Carro(placa_temp, marca_temp, modelo_temp, preco_diaria_temp)
     estoque_carros.append(novo_carro)
