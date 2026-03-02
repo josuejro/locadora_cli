@@ -1,5 +1,3 @@
-from datetime import datetime
-
 class Contrato:
     def __init__(self, id_contrato, cpf_cliente, placa_carro, data_retirada, data_devolucao_prevista, km_inicial, limite_km, valor_provisorio, seguro_e_extras, status):
         self.id_contrato = id_contrato
