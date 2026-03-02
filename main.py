@@ -18,11 +18,10 @@ while True:
     elif opc == 4:
         operacoes.locacao.realizar_locacao()
     elif opc == 5:
-        operacoes.devolucao.realizar_devolução()
+        operacoes.devolucao.realizar_devolucao()
     elif opc == 6:
         print('Saindo do sistema... ')
         break
     else: 
         input('Opção inválida, pressione Enter e tente novamente.')
-        break
 

@@ -1,3 +1,2 @@
 id_contrato,cpf_cliente,placa_carro,data_retirada,data_devolucao_prevista,km_inicial,limite_km,valor_provisorio,seguro_e_extras,status
-1,10987654321,ABC1D23,Imediata,21,15.0,1000.0,2845.5,Básico,Finalizado
-2,12345678910,XYZ9W87,Imediata,31,125.0,1000.0,3720.0,Básico,Ativa
+1,12345678910,ABC12D34,2026-03-02 17:17:24,2026-04-02 17:17:24,122.56,1000,2288.9,Plus:60.0,Finalizado

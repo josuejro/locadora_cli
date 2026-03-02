@@ -61,7 +61,7 @@ def carregar_clientes():
         return lista_temp
     
     df = pd.read_csv('clientes.csv')
-    for index, linha in df.iterrows():
+    for _, linha in df.iterrows():
         novo_cliente = Cliente(
             str(linha['nome']),
             str(linha['data_nasc']),
@@ -78,16 +78,23 @@ def salvar_locacoes(lista_locacoes):
     
     dados = []
     for contrato in lista_locacoes:
+        # Se seguro_e_extras for dicionário, serializa como "Tipo:custo"
+        seguro = contrato.seguro_e_extras
+        if isinstance(seguro, dict):
+            seguro_str = f"{seguro['tipo']}:{seguro['custo']}"
+        else:
+            seguro_str = seguro  # já é string (carregado do CSV)
+
         dados.append({
             'id_contrato': contrato.id_contrato,
             'cpf_cliente': contrato.cpf_cliente,
             'placa_carro': contrato.placa_carro,
-            'data_retirada': contrato.data_retirada,
-            'data_devolucao_prevista': contrato.data_devolucao_prevista,
+            'data_retirada': contrato.data_retirada.strftime('%Y-%m-%d %H:%M:%S'),
+            'data_devolucao_prevista': contrato.data_devolucao_prevista.strftime('%Y-%m-%d %H:%M:%S'),
             'km_inicial': contrato.km_inicial,
             'limite_km': contrato.limite_km,
             'valor_provisorio': contrato.valor_provisorio,
-            'seguro_e_extras': contrato.seguro_e_extras,
+            'seguro_e_extras': seguro_str,
             'status': contrato.status
         })
     
@@ -95,25 +102,29 @@ def salvar_locacoes(lista_locacoes):
     df.to_csv('locacoes.csv', index=False)
 
 def carregar_locacoes():
+    from datetime import datetime
+
     lista_temp = []
     if not os.path.exists('locacoes.csv'):
         return lista_temp
     
     df = pd.read_csv('locacoes.csv')
-    for index, linha in df.iterrows():
+    for _, linha in df.iterrows():
+        data_retirada = datetime.strptime(linha['data_retirada'], '%Y-%m-%d %H:%M:%S')
+        data_devolucao_prevista = datetime.strptime(linha['data_devolucao_prevista'], '%Y-%m-%d %H:%M:%S')
+
         novo_contrato = Contrato(
             int(linha['id_contrato']),
             str(linha['cpf_cliente']),
             str(linha['placa_carro']),
-            str(linha['data_retirada']),
-            int(linha['data_devolucao_prevista']),
+            data_retirada,
+            data_devolucao_prevista,
             float(linha['km_inicial']),
             float(linha['limite_km']),
             float(linha['valor_provisorio']),
             str(linha['seguro_e_extras']),
             str(linha['status'])
         )
-
         lista_temp.append(novo_contrato)
     
     return lista_temp
