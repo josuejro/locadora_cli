@@ -1,9 +1,5 @@
 # Locadora CLI
 
-![Python](https://img.shields.io/badge/Python-3.x-blue.svg)
-![Pandas](https://img.shields.io/badge/Pandas-Data%20Persistence-150458.svg)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
-
 Sistema de gerenciamento para locadoras de veículos executado via linha de comando (CLI). Desenvolvido em Python com foco em Programação Orientada a Objetos, persistência de dados e arquitetura modularizada.
 
 ---
