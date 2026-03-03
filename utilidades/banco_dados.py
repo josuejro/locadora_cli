@@ -78,12 +78,11 @@ def salvar_locacoes(lista_locacoes):
     
     dados = []
     for contrato in lista_locacoes:
-        # Se seguro_e_extras for dicionário, serializa como "Tipo:custo"
         seguro = contrato.seguro_e_extras
         if isinstance(seguro, dict):
             seguro_str = f"{seguro['tipo']}:{seguro['custo']}"
         else:
-            seguro_str = seguro  # já é string (carregado do CSV)
+            seguro_str = seguro
 
         dados.append({
             'id_contrato': contrato.id_contrato,

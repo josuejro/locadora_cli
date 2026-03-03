@@ -114,9 +114,9 @@ def realizar_locacao():
             data_retirada=data_retirada,
             data_devolucao_prevista=data_devolucao_prevista,
             km_inicial=quilometragem_painel,
-            limite_km=1000,                      # mantido fixo
+            limite_km=1000,                     
             valor_provisorio=valor_total_previsto,
-            seguro_e_extras={'tipo': tipo_seguro, 'custo': custo_seguro},  # salva como dicionário
+            seguro_e_extras={'tipo': tipo_seguro, 'custo': custo_seguro},
             status='Ativa'
         )
         lista_locacoes.append(novo_contrato)

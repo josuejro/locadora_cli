@@ -20,12 +20,10 @@ def realizar_devolucao():
         input('Pressione Enter para retornar...')
         return
 
-    # Data/hora da devolução (pode ser agora ou permitir que o usuário informe)
     usar_data_hora_atual = input('Usar data/hora atual para a devolução? [S/N]: ').strip().upper()[0]
     if usar_data_hora_atual == 'S':
         data_devolucao_real = datetime.now()
     else:
-        # Permite que o usuário digite a data/hora da devolução (formato: DD/MM/AAAA HH:MM)
         while True:
             try:
                 data_str = input('Digite a data e hora da devolução (DD/MM/AAAA HH:MM): ')
@@ -34,23 +32,20 @@ def realizar_devolucao():
             except ValueError:
                 print('Formato inválido. Use DD/MM/AAAA HH:MM (ex: 25/12/2025 18:30).')
 
-    # Cálculo do atraso em horas
     if data_devolucao_real > contrato_atual.data_devolucao_prevista:
         diferenca = data_devolucao_real - contrato_atual.data_devolucao_prevista
-        horas_atraso = diferenca.total_seconds() / 3600  # converte segundos para horas
-        horas_atraso = round(horas_atraso, 2)           # arredonda para 2 casas
+        horas_atraso = diferenca.total_seconds() / 3600
+        horas_atraso = round(horas_atraso, 2)
         print(f'Atraso detectado: {horas_atraso:.2f} horas.')
     else:
         horas_atraso = 0
         print('Veículo devolvido no prazo.')
 
-    # Demais verificações (tanque, km, avarias)
     tanque_cheio = input('O tanque está cheio? [S/N]: ').strip().upper()[0]
     taxas_adicionais = 0
     if tanque_cheio == 'N':
         taxas_adicionais += 150.00
 
-    # Quilometragem (com validação)
     while True:
         try:
             km_devolucao = float(input('Quilometragem atual (ex: 1234.56): '))
@@ -73,13 +68,11 @@ def realizar_devolucao():
                 print('Valor inválido.')
         taxas_adicionais += valor_avarias
 
-    # Aplicar multa por atraso (se houver)
     if horas_atraso > 0:
         taxas_adicionais += calcular_multa_atraso(horas_atraso)
 
     valor_final = contrato_atual.valor_provisorio + taxas_adicionais
 
-    # Exibir extrato
     print('-' * 50)
     print('EXTRATO DE DEVOLUÇÃO'.center(50))
     print('-' * 50)
@@ -101,7 +94,6 @@ def realizar_devolucao():
             if carro.placa == contrato_atual.placa_carro:
                 carro.disponivel = True
                 break
-        # Salva alterações
         banco_dados.salvar_locacoes(lista_locacoes)
         banco_dados.salvar_carros(estoque_carros)
         print('Pagamento confirmado e devolução efetuada com sucesso! Veículo liberado em estoque.')
