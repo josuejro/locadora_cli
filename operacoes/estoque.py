@@ -8,7 +8,7 @@ def estoque():
         print('Nenhum veículo cadastrado no momento.')
     else:
         for veiculo in estoque_carros:
-            if veiculo.disponivel == True:
+            if veiculo.disponivel:
                 texto_status = 'Disponível'
             else:
                 texto_status = 'Alugado'

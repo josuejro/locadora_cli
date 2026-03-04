@@ -4,4 +4,6 @@ class Cliente:
         self.data_nasc = data_nasc
         self.cpf = cpf
         self.cnh = cnh
-        
+
+    def __repr__(self):
+        return f"Cliente(nome='{self.nome}', cpf='{self.cpf}')"

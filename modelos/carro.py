@@ -5,3 +5,6 @@ class Carro:
         self.modelo = modelo
         self.preco_diaria = preco_diaria
         self.disponivel = True
+
+    def __repr__(self):
+        return f"Carro(placa='{self.placa}', marca='{self.marca}', modelo='{self.modelo}')"

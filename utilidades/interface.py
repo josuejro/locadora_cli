@@ -1,8 +1,11 @@
-import os
 import subprocess
+import sys
 
 def limpar_tela():
-    subprocess.call("cls" if os.name == "nt" else "clear", shell=True)
+    if sys.platform == "win32":
+        subprocess.run(["cls"], shell=True)
+    else:
+        subprocess.run(["clear"])
 
 def cabecalho(txt):
     tam = 50
