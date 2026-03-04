@@ -1,4 +1,4 @@
-# Locadora CLI
+# 🚗 Locadora CLI
 
 Sistema de gerenciamento para locadoras de veículos executado via linha de comando (CLI). Desenvolvido em Python com foco em Programação Orientada a Objetos, persistência de dados e arquitetura modularizada.
 
@@ -7,11 +7,11 @@ Sistema de gerenciamento para locadoras de veículos executado via linha de coma
 ## Funcionalidades
 
 - **Gestão de frota:** cadastro de veículos e visualização do estoque com status atualizado automaticamente (Disponível/Alugado)
-- **Gestão de clientes:** cadastro com nome, CPF, CNH e data de nascimento
+- **Gestão de clientes:** cadastro com nome, CPF, CNH e data de nascimento, com validação de formato para CPF e CNH
 - **Locação:** geração de contratos com datas reais via `datetime` e seleção de plano de seguro
 - **Devolução:** cálculo automático do valor final, incluindo multas por atraso (por hora), quilometragem excedente, reabastecimento e avarias
 - **Persistência:** leitura e escrita de dados em arquivos `.csv` via pandas, mantendo o estado entre execuções
-- **Validação de entrada:** tratamento de exceções nos campos numéricos para evitar crashes por digitação inválida
+- **Validação de entrada:** tratamento de exceções nos campos numéricos e validação de formato para CPF/CNH
 
 ---
 
@@ -21,6 +21,7 @@ Sistema de gerenciamento para locadoras de veículos executado via linha de coma
 locadora_cli/
 │
 ├── main.py                  # Ponto de entrada do programa
+├── requirements.txt         # Dependências do projeto
 │
 ├── modelos/                 # Classes de domínio
 │   ├── carro.py
@@ -36,7 +37,9 @@ locadora_cli/
 └── utilidades/              # Funções auxiliares
     ├── banco_dados.py       # Leitura e escrita nos CSVs
     ├── calculos.py          # Formatação de moeda e cálculo de multas
-    └── interface.py         # Menu e cabeçalhos do terminal
+    ├── constantes.py        # Valores centralizados de multas e taxas
+    ├── interface.py         # Menu e cabeçalhos do terminal
+    └── validacoes.py        # Validação de CPF e CNH
 ```
 
 ---
@@ -46,10 +49,10 @@ locadora_cli/
 - Python 3.10 ou superior
 - pandas
 
-Instale a dependência com:
+Instale as dependências com:
 
 ```bash
-pip install pandas
+pip install -r requirements.txt
 ```
 
 ---
@@ -61,6 +64,7 @@ Clone o repositório e execute o arquivo principal:
 ```bash
 git clone https://github.com/josuejro/locadora_cli.git
 cd locadora_cli
+pip install -r requirements.txt
 python main.py
 ```
 
@@ -103,11 +107,19 @@ Os dados são salvos automaticamente em arquivos CSV na raiz do projeto:
 
 ## Regras de negócio
 
+**Validação de cadastro:**
+- CPF: deve conter exatamente 11 dígitos numéricos
+- CNH: deve conter exatamente 11 dígitos numéricos
+
 **Multas na devolução:**
-- Tanque não cheio: R$ 150,00 fixo
-- Quilometragem excedente (limite: 1.000 km): R$ 2,50 por km
-- Atraso na entrega: R$ 30,00 por hora
-- Avarias: valor informado pelo atendente
+| Tipo | Valor |
+|---|---|
+| Tanque não cheio | R$ 150,00 (fixo) |
+| Quilometragem excedente (limite: 1.000 km) | R$ 2,50 por km |
+| Atraso na entrega | R$ 30,00 por hora |
+| Avarias | Valor informado pelo atendente |
+
+> Os valores de multas e taxas estão centralizados em `utilidades/constantes.py`, facilitando manutenção futura.
 
 **Planos de seguro disponíveis:**
 
@@ -119,9 +131,21 @@ Os dados são salvos automaticamente em arquivos CSV na raiz do projeto:
 
 ---
 
+## Boas práticas aplicadas
+
+- **Arquitetura modular:** separação em camadas (modelos, operações, utilidades)
+- **Comparações Pythônicas:** uso idiomático de `if not`, `is None` e avaliação direta de booleanos
+- **Constantes centralizadas:** valores de multas e taxas em um único arquivo (`constantes.py`)
+- **Validação de entrada:** formato de CPF/CNH validado via regex (`validacoes.py`)
+- **`__repr__` nos modelos:** facilita depuração e inspeção dos objetos `Carro`, `Cliente` e `Contrato`
+- **Segurança:** limpeza de tela via `subprocess.run()` sem `shell=True` (compatível com Python 3.14+)
+
+---
+
 ## Tecnologias utilizadas
 
 - Python 3
 - pandas
 - Módulo `datetime` (datas e cálculo de atraso)
-- Módulo `os` / `subprocess` (limpeza de tela multiplataforma)
+- Módulo `subprocess` (limpeza de tela multiplataforma)
+- Módulo `re` (validação de CPF e CNH)
