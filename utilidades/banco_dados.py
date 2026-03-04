@@ -34,7 +34,7 @@ def carregar_carros():
             str(linha['modelo']),
             float(linha['preco_diaria'])
         )
-        novo_carro.disponivel = linha['disponivel'] == True
+        novo_carro.disponivel = bool(linha['disponivel'])
         lista_temp.append(novo_carro)
     
     return lista_temp

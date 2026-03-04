@@ -5,6 +5,7 @@ from modelos.contrato import Contrato
 from utilidades.interface import cabecalho
 from utilidades.calculos import formatar_moeda
 from utilidades import banco_dados
+from utilidades.constantes import LIMITE_KM_PADRAO
 
 lista_locacoes = []
 
@@ -27,7 +28,7 @@ def realizar_locacao():
             cliente_atual = cliente
             break
 
-    if cliente_encontrado == False:
+    if not cliente_encontrado:
         print('Erro: Cliente não cadastrado no sistema.')
         input('Pressione Enter para retornar ao menu principal... ')
         return
@@ -35,18 +36,18 @@ def realizar_locacao():
     print('Veículos disponíveis para locação: ')
 
     for carro in estoque_carros:
-        if carro.disponivel == True:
+        if carro.disponivel:
             print(f'[{carro.placa}] {carro.marca} {carro.modelo} - Diária: {formatar_moeda(carro.preco_diaria)}')
     
     placa_escolhida = input('Digite a placa do carro escolhido pelo locador: ')
     carro_escolhido = None
 
     for carro in estoque_carros:
-        if carro.placa == placa_escolhida and carro.disponivel == True:
+        if carro.placa == placa_escolhida and carro.disponivel:
             carro_escolhido = carro
             break
     
-    if carro_escolhido == None:
+    if carro_escolhido is None:
         print('Erro: veículo indisponível ou placa incorreta.')
         input('Pressione Enter para retornar ao menu principal... ')
         return
@@ -114,7 +115,7 @@ def realizar_locacao():
             data_retirada=data_retirada,
             data_devolucao_prevista=data_devolucao_prevista,
             km_inicial=quilometragem_painel,
-            limite_km=1000,                     
+            limite_km=LIMITE_KM_PADRAO,                     
             valor_provisorio=valor_total_previsto,
             seguro_e_extras={'tipo': tipo_seguro, 'custo': custo_seguro},
             status='Ativa'

@@ -4,6 +4,7 @@ from operacoes.cadastro import estoque_carros
 from utilidades.interface import cabecalho
 from utilidades.calculos import formatar_moeda, calcular_multa_km, calcular_multa_atraso
 from utilidades import banco_dados
+from utilidades.constantes import MULTA_TANQUE
 
 def realizar_devolucao():
     cabecalho('DEVOLUÇÃO DE VEÍCULO')
@@ -44,7 +45,7 @@ def realizar_devolucao():
     tanque_cheio = input('O tanque está cheio? [S/N]: ').strip().upper()[0]
     taxas_adicionais = 0
     if tanque_cheio == 'N':
-        taxas_adicionais += 150.00
+        taxas_adicionais += MULTA_TANQUE
 
     while True:
         try:

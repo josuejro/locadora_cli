@@ -10,3 +10,6 @@ class Contrato:
         self.valor_provisorio = valor_provisorio
         self.seguro_e_extras = seguro_e_extras
         self.status = status
+
+    def __repr__(self):
+        return f"Contrato(id={self.id_contrato}, placa='{self.placa_carro}', status='{self.status}')"

@@ -1,3 +1,5 @@
+from utilidades.constantes import TAXA_KM_EXCEDENTE, TAXA_ATRASO_HORA
+
 def formatar_moeda(valor):
     """
     Recebe um número decimal e devolve um texto formatado como moeda.
@@ -12,11 +14,9 @@ def formatar_moeda(valor):
     return f"R$ {valor_formatado}"
 
 def calcular_multa_km(km_excedente):
-    """Calcula a multa aplicando uma taxa fixa de R$ 2,50 por km."""
-    taxa_por_km = 2.50
-    return km_excedente * taxa_por_km
+    """Calcula a multa aplicando a taxa por km excedente."""
+    return km_excedente * TAXA_KM_EXCEDENTE
 
 def calcular_multa_atraso(horas_atraso):
-    """Calcula a multa aplicando R$ 30,00 por cada hora de atraso."""
-    taxa_por_hora = 30.00
-    return horas_atraso * taxa_por_hora
+    """Calcula a multa aplicando a taxa por cada hora de atraso."""
+    return horas_atraso * TAXA_ATRASO_HORA

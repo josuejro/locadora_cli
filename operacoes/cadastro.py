@@ -2,6 +2,7 @@ from modelos.carro import Carro
 from modelos.cliente import Cliente
 from utilidades.interface import cabecalho
 from utilidades import banco_dados
+from utilidades.validacoes import validar_cpf, validar_cnh
 
 estoque_carros = []
 lista_clientes = []
@@ -32,8 +33,18 @@ def cadastrar_clientes():
 
     nome_temp = input('Nome do cliente: ')
     data_nasc_temp = input('Data de nascimento: ')
-    cpf_temp = input('CPF: ')
-    cnh_temp = input('CNH: ')
+
+    while True:
+        cpf_temp = input('CPF (11 dígitos numéricos): ')
+        if validar_cpf(cpf_temp):
+            break
+        print('CPF inválido. Digite exatamente 11 dígitos numéricos.')
+
+    while True:
+        cnh_temp = input('CNH (11 dígitos numéricos): ')
+        if validar_cnh(cnh_temp):
+            break
+        print('CNH inválida. Digite exatamente 11 dígitos numéricos.')
 
     novo_cliente = Cliente(nome_temp, data_nasc_temp, cpf_temp, cnh_temp)
     lista_clientes.append(novo_cliente)
