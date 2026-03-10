@@ -134,7 +134,7 @@ Os dados são salvos automaticamente em arquivos CSV na raiz do projeto:
 ## Boas práticas aplicadas
 
 - **Arquitetura modular:** separação em camadas (modelos, operações, utilidades)
-- **Comparações Pythônicas:** uso idiomático de `if not`, `is None` e avaliação direta de booleanos
+- **Comparações:** uso idiomático de `if not`, `is None` e avaliação direta de booleanos
 - **Constantes centralizadas:** valores de multas e taxas em um único arquivo (`constantes.py`)
 - **Validação de entrada:** formato de CPF/CNH validado via regex (`validacoes.py`)
 - **`__repr__` nos modelos:** facilita depuração e inspeção dos objetos `Carro`, `Cliente` e `Contrato`
